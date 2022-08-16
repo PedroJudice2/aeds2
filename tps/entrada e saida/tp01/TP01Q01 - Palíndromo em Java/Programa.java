@@ -2,31 +2,46 @@ import java.util.*;
 
 class Programa {
 
+    public static boolean ispal(String x) {
+        for (int i = 0; i < x.length() / 2; i++) {
+            if (x.charAt(i) != x.charAt(x.length() - i - 1)) {
+                return false;
+            }
+        } 
+        return true;
+    }
+
+    public static boolean isfim(String b) {
+            if(b.charAt(0) == 'F' && b.charAt(1) == 'I' && b.charAt(2) == 'M') 
+            return false;
+            return true;
+            
+        }
+
+
+    public static void imprimir(String a) {
+    if (ispal(a) == true) 
+    System.out.println("SIM");
+    else 
+    System.out.println("NAO");
+    }
 
     public static void main (String[] args) {
     // criar scanner
-    Scanner sc= new Scanner(System.in);
-    String str;
-
-    // checar fim do arquivo
+    Scanner sc = new Scanner(System.in);
+    String[] str = new String[1000];
+    int y = 0; // numero de strings
+    // ler palavras
     do {
-        boolean pal = true;
-        str = sc.nextLine();
-        if (!(str.equals("FIM"))) {
-          for (int i = 0; i < str.length() / 2; i++) {
-            if (str.charAt(i) != str.charAt(str.length() - i - 1)) {
-                pal = false;
-                i = 10000;
-            }
-        } 
+        str[y] = sc.nextLine(); 
+    } while (isfim(str[y++]));
+    y--; //desconsiderar FIM
 
-        if (pal == true) {
-            System.out.println("SIM");
-        }
-        else {
-            System.out.println("NAO");
-        }
-    }
-    } while (!(str.equals("FIM")));
+
+    // chamar função de imprimir
+    for (int i = 0; i < y; i++) 
+    imprimir(str[i]);
+     
     } 
+
 }
