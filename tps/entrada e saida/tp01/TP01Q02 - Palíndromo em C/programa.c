@@ -21,19 +21,19 @@ char teste[100];
 
     do {
         fgets(teste, tam, stdin);
+        teste[strcspn(teste, "\r\n")] = 0;
         strcpy(str[y], teste);
     } while (isfim(str[y++]));
     y--; //desnconsiderar fim
-    
-    for (int i = 0; i < y; i++) {
+
+      for (int i = 0; i < y; i++) {
         imprimir(str[i]);
     } 
 
 }
 
 bool isfim(char *a) {
-    char fim[] = "FIM\n";
-    if (strcmp(a, fim) == 0){
+    if (a[0] == 'F' && a[1] == 'I' && a[2] == 'M'){
     return false;
     }
     return true;
@@ -49,7 +49,7 @@ void imprimir (char *a) {
 
 bool ispal(char *a) {
     for (int i = 0; i < (strlen(a) / 2); i++) {
-        if (a[i] != a[strlen(a) - i - 2]) {
+        if (a[i] != a[strlen(a) - i - 1]) {
             return false;
         }
     } 
