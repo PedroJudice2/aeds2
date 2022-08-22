@@ -12,13 +12,13 @@ class Programa {
     public static boolean verifcador (String str) {
         str = str.replaceAll("\\s+","");
         StringBuffer buf = new StringBuffer(str);
-        for (int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < buf.length(); i++) {
             // realizar primeira operação
-            if (str.charAt(i) == ')') {
+            if (buf.charAt(i) == ')') {
                 for (int j = i; j > 0; j--) {
                     // realizar operação caso not
-                    if (str.charAt(j) == 't'){
-                        if(str.charAt(j + 2) == '0') {
+                    if (buf.charAt(j) == 't'){
+                        if(buf.charAt(j + 2) == '0') {
                             buf.replace(j - 2, i + 1, "1");
                         } else {
                             buf.replace(j - 2, i + 1, "0");
@@ -26,8 +26,8 @@ class Programa {
                         j = 0;
                     }
                     // realizar operação caso and
-                    else if (str.charAt(j) == 'd') {
-                        if (str.charAt(j + 2) == '0' || str.charAt(j + 4) == '0' || str.charAt(j + 6) == '0') {
+                    else if (buf.charAt(j) == 'd') {
+                        if (buf.charAt(j + 2) == '0' || buf.charAt(j + 4) == '0' || buf.charAt(j + 6) == '0') {
                         buf.replace(j - 2, i + 1, "0");
                     }
                         else {
@@ -36,12 +36,12 @@ class Programa {
                     j = 0;
                     }
                     // realizar operação caso or
-                    else if (str.charAt(j) == 'r') {
-                        if (str.charAt(j + 2) == '1' || str.charAt(j + 4) == '1' || str.charAt(j + 6) == '1') {
-                            buf.replace(j - 2, i + 1, "1");
+                    else if (buf.charAt(j) == 'r') {
+                        if (buf.charAt(j + 2) == '1' || buf.charAt(j + 4) == '1' || buf.charAt(j + 6) == '1') {
+                            buf.replace(j - 1, i + 1, "1");
                         }
                         else {
-                            buf.replace(j - 2, i + 1, "0");
+                            buf.replace(j - 1, i + 1, "0");
                         }  
                         j = 0;  
                     }
@@ -49,7 +49,10 @@ class Programa {
                 i = 0;
             }
         }
-        System.out.println(buf);
+        buf.deleteCharAt(buf.length()-1); 
+        str = buf.toString();
+        str = str.replaceAll("\\s+","");
+        System.out.println(str);
         return true;
     }
     
