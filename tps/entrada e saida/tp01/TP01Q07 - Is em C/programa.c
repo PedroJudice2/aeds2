@@ -5,7 +5,7 @@
 #include <ctype.h>
 
 #define nDeStrings 1000
-#define tam 350
+#define tam 400
 
 bool isfim(char *a);
 void is(char *texto);
@@ -18,7 +18,7 @@ int main (void) {
 
 char str[nDeStrings][tam + 1];
 int y = 0; // tamanho string
-char teste[100];
+char teste[tam + 1];
     // pegar strings
 
 

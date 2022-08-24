@@ -15,7 +15,7 @@ int main (void) {
 
 char str[nDeStrings][tam + 1];
 int y = 0; // tamanho string
-char teste[100];
+char teste[tam + 1];
     // pegar strings
 
 
