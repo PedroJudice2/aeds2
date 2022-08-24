@@ -2,7 +2,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-
 class Programa {
     public static String getHtml(String endereco){
        URL url;
@@ -62,61 +61,61 @@ class Programa {
         }
 
         //verificar ocorrencias com assento pra direita
-        else if(html.charAt(i) == 'Ã¡') {
+        else if(html.charAt(i) == 'á') {
          x6++;
         }
-        else if(html.charAt(i) == 'Ã©') {
+        else if(html.charAt(i) == 'é') {
          x7++;
         }
-        else if(html.charAt(i) == 'Ã­') {
+        else if(html.charAt(i) == 'í') {
          x8++;
         }
-        else if(html.charAt(i) == 'Ã³') {
+        else if(html.charAt(i) == 'ó') {
          x9++;
         }
-        else if(html.charAt(i) == 'Ãº') {
+        else if(html.charAt(i) == 'ú') {
          x10++;
         }
 
         //verificar ocorrencias com assento pra esquerda
-        else if(html.charAt(i) == 'Ã ') {
+        else if(html.charAt(i) == 'à') {
          x11++;
         }
-        else if(html.charAt(i) == 'Ã¨') {
+        else if(html.charAt(i) == 'è') {
          x12++;
         }
-        else if(html.charAt(i) == 'Ã¬') {
+        else if(html.charAt(i) == 'ì') {
          x13++;
         }
-        else if(html.charAt(i) == 'Ã²') {
+        else if(html.charAt(i) == 'ò') {
          x14++;
         }
-        else if(html.charAt(i) == 'Ã¹') {
+        else if(html.charAt(i) == 'ù') {
          x15++;
         }
 
         //verificar ocorrencias com assento ~
-        else if(html.charAt(i) == 'Ã£') {
+        else if(html.charAt(i) == 'ã') {
          x16++;
         }
-        else if(html.charAt(i) == 'Ãµ') {
+        else if(html.charAt(i) == 'õ') {
          x17++;
         }
 
         // verificar ocorrencias com assento ^
-        else if(html.charAt(i) == 'Ã¢') {
+        else if(html.charAt(i) == 'â') {
          x18++;
         }
-        else if(html.charAt(i) == 'Ãª') {
+        else if(html.charAt(i) == 'ê') {
          x19++;
         }
-        else if(html.charAt(i) == 'Ã®') {
+        else if(html.charAt(i) == 'î') {
          x20++;
         }
-        else if(html.charAt(i) == 'Ã´') {
+        else if(html.charAt(i) == 'ô') {
          x21++;
         }
-        else if(html.charAt(i) == 'Ã»') {
+        else if(html.charAt(i) == 'û') {
          x22++;
         }
         // verificar se Ã© consuante
@@ -126,16 +125,18 @@ class Programa {
         // verificar presenÃ§a de tag <br> e <table>
         else if (html.charAt(i) == '<') {
         if (html.charAt(i + 1) == 'b' && html.charAt(i + 2) == 'r' && html.charAt(i + 3) == '>') {
+          i += 4;
          x24++;
         }
         else if (html.charAt(i + 1) == 't' && html.charAt(i + 2) == 'a' && html.charAt(i + 3) == 'b' && html.charAt(i + 4) == 'l' && html.charAt(i + 5) == 'e' && html.charAt(i + 6) == '>') {
+          i += 7;
          x25++;
         }
      }
      
    }
     //imprimir valores
-    System.out.printf("a(%d) e(%d) i(%d) o(%d) u(%d) Ã¡(%d) Ã©(%d) Ã­(%d) Ã³(%d) Ãº(%d) Ã (%d) Ã¨(%d) Ã¬(%d) Ã²(%d) Ã¹(%d) Ã£(%d) Ãµ(%d) Ã¢(%d) Ãª(%d) Ã®(%d) Ã´(%d) Ã»(%d) consoante(%d) <br>(%d) <table>(%d) ", x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21,x22, x23, x24, x25);
+    System.out.printf("a(%d) e(%d) i(%d) o(%d) u(%d) á(%d) é(%d) í­(%d) ó(%d) ú(%d) à(%d) è(%d) ì(%d) ò(%d) ù(%d) ã(%d) õ(%d) â(%d) ê(%d) î(%d) ô(%d) û(%d) consoante(%d) <br>(%d) <table>(%d) ", x1, x2, x3, x4, x5, x6, x7, x8, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21,x22, x23, x24, x25);
     System.out.println(NomeDaPagina);
     }
 
@@ -161,4 +162,4 @@ class Programa {
             }
 
     } 
- }
+}
