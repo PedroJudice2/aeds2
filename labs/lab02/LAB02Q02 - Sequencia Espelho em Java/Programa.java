@@ -16,7 +16,7 @@ class Programa {
                 inverso.append(i);
             }
             inverso.reverse();
-           System.out.println(inverso);
+            System.out.println(inverso);
             x++;
         }
         sc.close();
