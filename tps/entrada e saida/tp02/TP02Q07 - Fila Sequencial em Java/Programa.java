@@ -7,9 +7,7 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -483,7 +481,7 @@ class Game {
 
         DecimalFormat df = new DecimalFormat("##");
         System.out.println(this.app_id + " " + this.name + " " + default_dateFormat.format(this.release_date) + " "
-                + this.owners + " " + this.age + " " + String.format("%.2f", this.price) + " " + this.dlcs + " "
+                + this.owners + " " + this.age + " " + String.format(Locale.US, "%.2f", price) + " " + this.dlcs + " "
                 + this.languages + " " + this.website + " " + this.windows + " " + this.mac + " " + this.linux + " "
                 + (Float.isNaN(this.upvotes) ? "0.0% " : df.format(this.upvotes) + "% ") + avg_pt + this.developers
                 + " " + this.genres);
@@ -492,7 +490,7 @@ class Game {
 
 public class Programa {
     // criar lista global
-    public static List<Game> listaDeJogos = new ArrayList<Game>();
+    public static FilaCircular listaDeJogos = new FilaCircular(5);
 
     public static boolean isFim(String line) {
         return (line.length() == 3 && line.charAt(0) == 'F' && line.charAt(1) == 'I' && line.charAt(2) == 'M');
@@ -511,7 +509,8 @@ public class Programa {
                     if (linhaEntrada.equals(nome[0])) {
                         Game jogo = new Game();
                         jogo.ler(linhaCSV);
-                        listaDeJogos.add(jogo);
+                        listaDeJogos.enfileira(jogo);
+                        avg(); // imprimir media
                         flag++;
                     }
                 }
@@ -525,39 +524,16 @@ public class Programa {
         }
     }
 
-    public static boolean binarySearch(String target, int start, int end) {
-        boolean resp;
-        // calculate the middle of the list
-        int middle = (start + end) / 2;
-        // if element isn't on the list
-        if (start > end) {
-            resp = false;
+    public static void avg() {
+        // calcular avg play time
+        int avg = 0;
+        for (int i = 0; i < listaDeJogos.quantidade(); i++) {
+            Game soma = (Game) listaDeJogos.retornaIndice(i);
+            avg += soma.getAvgPlaytime();
         }
-        // check if target is on the middle
-        else if (listaDeJogos.get(middle).getName().compareTo(target) == 0) {
-            resp = true;
-        }
-        // if target is greater than element
-        else if (listaDeJogos.get(middle).getName().compareTo(target) < 0) {
-            resp = binarySearch(target, middle + 1, end);
-        }
-        // if target is smaller than element
-        else {
-            resp = binarySearch(target, start, middle - 1);
-        }
-        // java asking for return
-        return resp;
-
-    }
-
-    public static void Bubblesort() {
-        for (int i = 0; i < listaDeJogos.size(); i++) {
-            for (int j = 0; j < listaDeJogos.size() - i - 1; j++) {
-                if ((listaDeJogos.get(j).getName().compareTo(listaDeJogos.get(j + 1).getName()) > 0)) {
-                    Collections.swap(listaDeJogos, j, j + 1);
-                }
-            }
-        }
+        // cacular media
+        avg = Math.round((float) avg / listaDeJogos.quantidade());
+        System.out.println(avg);
     }
 
     public static void main(String[] args) {
@@ -576,23 +552,151 @@ public class Programa {
 
         } while (isFim(linhaEntrada) == false);
 
-        // ordenar lista por nome
-        Bubblesort();
+        sc.nextInt();
+        sc.nextLine();
+        String options;
 
-        // binary search search
-        do {
-            linhaEntrada = sc.nextLine();
-            if (isFim(linhaEntrada) == false) {
-                if (binarySearch(linhaEntrada, 0, listaDeJogos.size() - 1)) {
-                    System.out.println("SIM");
-                } else {
-                    System.out.println("NAO");
+        while (sc.hasNext()) {
+            options = sc.nextLine();
+            String[] items = options.split(" ");
+            if (items[0].equals("I")) {
+                // imprimir opcao
+                System.out.println(options);
+                try {
+                    carregar(items[1]);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
-
+            } else if (items[0].equals("R")) {
+                // imprimir opcao
+                System.out.println(options);
+                Game removido = (Game) listaDeJogos.desenfileira();
+                System.out.println("(R) " + removido.getName());
             }
-        } while (isFim(linhaEntrada) == false);
+        }
 
-        sc.close();
+        // imprimir lista
+        for (int i = 0; i < listaDeJogos.quantidade(); i++) {
+            Game imprime = (Game) listaDeJogos.retornaIndice(i);
+            System.out.print("[" + i + "] ");
+            imprime.imprimir();
+        }
+
     }
 
+}
+
+// ------------------ classes da lista -------------------------
+
+class FilaCircular {
+    private Object[] array;
+    private int frente; // Aponta para a posi��o do vetor que armazena o primeiro elemento da fila
+    private int tras; // Aponta para a posi��o do vetor que armazena o �ltimo elemento da fila
+    private int qtde;
+
+    /**
+     * Construtor da classe.
+     */
+    public FilaCircular() {
+        this(5);
+    }
+
+    /**
+     * Construtor da classe.
+     * 
+     * @param tamanho Tamanho da fila.
+     */
+    public FilaCircular(int tamanho) {
+        array = new Object[tamanho];
+        frente = tras = 0;
+    }
+
+    /**
+     * Insere um elemento na �ltima posi��o da fila.
+     * 
+     * @param Object item: elemento a ser inserido.
+     */
+    public void enfileira(Object item) {
+        if (tras - frente < array.length) {
+            array[tras % array.length] = item;
+            tras++;
+            qtde++;
+        } else {
+            desenfileira();
+            array[tras % array.length] = item;
+            qtde++;
+            tras++;
+        }
+    }
+
+    /**
+     * Remove o elemento armazenado no posi��o referenciada pelo �ndice "frente".
+     * 
+     * @return Elemento desenfileirado.
+     */
+    public Object desenfileira() {
+        // validar remocao
+        if (frente == tras)
+            return null;
+        Object resp = array[frente];
+        frente = (frente + 1) % array.length;
+        qtde--;
+        return resp;
+    }
+
+    public void imprimeVet() {
+        System.out.print("[ ");
+        for (int i = 0; i < array.length; i++)
+            System.out.print(array[i] + " ");
+        System.out.println("]");
+    }
+
+    /**
+     * Mostra os elementos da Fila separados por espa�os.
+     */
+    public void mostrar() {
+        System.out.print("[ ");
+
+        for (int i = frente; i < tras; i++)
+            System.out.print(array[i % array.length] + " ");
+
+        System.out.println("]");
+    }
+
+    /**
+     * Mostra os elementos da Fila separados por espa�os (m�todo recursivo).
+     */
+    public void mostrarRec() {
+        System.out.print("[ ");
+        mostrarRec(frente);
+        System.out.println("]");
+    }
+
+    public void mostrarRec(int i) {
+        if (i != tras) {
+            System.out.print(array[i % array.length] + " ");
+            mostrarRec(++i);
+        }
+    }
+
+    public Object retornaIndice(int index) {
+        if (index >= 0 && index < array.length) {
+            return array[index];
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Retorna um boolean indicando se a fila esta vazia
+     * 
+     * @return boolean indicando se a fila esta vazia
+     */
+    public boolean vazia() {
+        return frente == tras;
+    }
+
+    public int quantidade() {
+        return qtde;
+    }
 }
