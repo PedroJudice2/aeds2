@@ -491,6 +491,7 @@ class Game {
 }
 
 public class Programa {
+
     // criar lista global
     public static List<Game> listaDeJogos = new ArrayList<Game>();
 
@@ -525,40 +526,53 @@ public class Programa {
         }
     }
 
-    public static boolean binarySearch(String target, int start, int end) {
-        boolean resp;
-        // calculate the middle of the list
-        int middle = (start + end) / 2;
-        // if element isn't on the list
-        if (start > end) {
-            resp = false;
+    public static void sort() {
+        int n = listaDeJogos.size();
+        // Contrucao do heap
+        for (int tamHeap = 1; tamHeap < n; tamHeap++) {
+            construir(tamHeap);
         }
-        // check if target is on the middle
-        else if (listaDeJogos.get(middle).getName().compareTo(target) == 0) {
-            resp = true;
+
+        // Ordenacao propriamente dita
+        int tamHeap = n - 1;
+        while (tamHeap > 0) {
+            Collections.swap(listaDeJogos, 0, tamHeap--);
+            reconstruir(tamHeap);
         }
-        // if target is greater than element
-        else if (listaDeJogos.get(middle).getName().compareTo(target) < 0) {
-            resp = binarySearch(target, middle + 1, end);
-        }
-        // if target is smaller than element
-        else {
-            resp = binarySearch(target, start, middle - 1);
-        }
-        // java asking for return
-        return resp;
 
     }
 
-    public static void Bubblesort() {
-    
-        for (int i = 0; i < listaDeJogos.size(); i++) {
-            for (int j = 0; j < listaDeJogos.size() - i - 1; j++) {
-                if ((listaDeJogos.get(j).getName().compareTo(listaDeJogos.get(j + 1).getName()) > 0)) {
-                    Collections.swap(listaDeJogos, j, j + 1);
-                }
+    public static void construir(int tamHeap) {
+
+        for (int i = tamHeap; i > 0 && listaDeJogos.get(i).getReleaseDate()
+                .compareTo(listaDeJogos.get((i - 1) / 2).getReleaseDate()) > 0; i /= 2) {
+            Collections.swap(listaDeJogos, i, (i - 1) / 2);
+        }
+    }
+
+    public static void reconstruir(int tamHeap) {
+        int i = 0;
+        while (i < (tamHeap / 2)) {
+            int filho = getMaiorFilho(i, tamHeap);
+            if (listaDeJogos.get(i).getReleaseDate().compareTo(listaDeJogos.get(filho).getReleaseDate()) < 0) {
+                Collections.swap(listaDeJogos, i, filho);
+                i = filho;
+            } else {
+                i = tamHeap;
             }
         }
+    }
+
+    public static int getMaiorFilho(int i, int tamHeap) {
+        int filho;
+
+        if (2 * i + 1 == tamHeap || listaDeJogos.get(2 * i + 1).getReleaseDate()
+                .compareTo(listaDeJogos.get(2 * i + 2).getReleaseDate()) > 0) {
+            filho = 2 * i + 1;
+        } else {
+            filho = 2 * i + 2;
+        }
+        return filho;
     }
 
     public static void main(String[] args) {
@@ -577,21 +591,14 @@ public class Programa {
 
         } while (isFim(linhaEntrada) == false);
 
-        // ordenar lista por nome
-        Bubblesort();
+        // sortear valores
+        sort();
 
-        // binary search search
-        do {
-            linhaEntrada = sc.nextLine();
-            if (isFim(linhaEntrada) == false) {
-                if (binarySearch(linhaEntrada, 0, listaDeJogos.size() - 1)) {
-                    System.out.println("SIM");
-                } else {
-                    System.out.println("NAO");
-                }
+        // imprimir valores
 
-            }
-        } while (isFim(linhaEntrada) == false);
+        for (Game g : listaDeJogos) {
+            g.imprimir();
+        }
 
         sc.close();
     }

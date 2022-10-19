@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,7 +6,6 @@ import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -483,7 +481,7 @@ class Game {
 
         DecimalFormat df = new DecimalFormat("##");
         System.out.println(this.app_id + " " + this.name + " " + default_dateFormat.format(this.release_date) + " "
-                + this.owners + " " + this.age + " " + String.format("%.2f", this.price) + " " + this.dlcs + " "
+                + this.owners + " " + this.age + " " + String.format(Locale.US, "%.2f", price) + " " + this.dlcs + " "
                 + this.languages + " " + this.website + " " + this.windows + " " + this.mac + " " + this.linux + " "
                 + (Float.isNaN(this.upvotes) ? "0.0% " : df.format(this.upvotes) + "% ") + avg_pt + this.developers
                 + " " + this.genres);
@@ -491,6 +489,11 @@ class Game {
 }
 
 public class Programa {
+
+    public static int swap(int a, int b) {
+        return a;
+    }
+
     // criar lista global
     public static List<Game> listaDeJogos = new ArrayList<Game>();
 
@@ -525,39 +528,53 @@ public class Programa {
         }
     }
 
-    public static boolean binarySearch(String target, int start, int end) {
-        boolean resp;
-        // calculate the middle of the list
-        int middle = (start + end) / 2;
-        // if element isn't on the list
-        if (start > end) {
-            resp = false;
+    public static void mergesort(int esq, int dir) {
+        if (esq < dir) {
+            int meio = (esq + dir) / 2;
+            mergesort(esq, meio);
+            mergesort(meio + 1, dir);
+            merge(esq, meio, dir);
         }
-        // check if target is on the middle
-        else if (listaDeJogos.get(middle).getName().compareTo(target) == 0) {
-            resp = true;
-        }
-        // if target is greater than element
-        else if (listaDeJogos.get(middle).getName().compareTo(target) < 0) {
-            resp = binarySearch(target, middle + 1, end);
-        }
-        // if target is smaller than element
-        else {
-            resp = binarySearch(target, start, middle - 1);
-        }
-        // java asking for return
-        return resp;
-
     }
 
-    public static void Bubblesort() {
-    
-        for (int i = 0; i < listaDeJogos.size(); i++) {
-            for (int j = 0; j < listaDeJogos.size() - i - 1; j++) {
-                if ((listaDeJogos.get(j).getName().compareTo(listaDeJogos.get(j + 1).getName()) > 0)) {
-                    Collections.swap(listaDeJogos, j, j + 1);
-                }
+    public static void merge(int esq, int meio, int dir) {
+        int i, j, k;
+        int n1 = meio - esq + 1;
+        int n2 = dir - meio;
+
+        Game[] L, R;
+        L = new Game[n1];
+        R = new Game[n2];
+
+        for (i = 0; i < n1; i++)
+            L[i] = listaDeJogos.get(esq + i).clone();
+        for (j = 0; j < n2; j++)
+            R[j] = listaDeJogos.get(meio + 1 + j).clone();
+
+        i = 0;
+        j = 0;
+        k = esq;
+        while (i < n1 && j < n2) {
+            if (L[i].getUpvotes() <= R[j].getUpvotes()) {
+                listaDeJogos.set(k, L[i]);
+                i++;
+            } else {
+                listaDeJogos.set(k, R[j]);
+                j++;
             }
+            k++;
+        }
+
+        while (i < n1) {
+            listaDeJogos.set(k, L[i]);
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            listaDeJogos.set(k, R[j]);
+            j++;
+            k++;
         }
     }
 
@@ -577,21 +594,14 @@ public class Programa {
 
         } while (isFim(linhaEntrada) == false);
 
-        // ordenar lista por nome
-        Bubblesort();
+        // sortear valores
+        mergesort(0, (listaDeJogos.size() - 1));
 
-        // binary search search
-        do {
-            linhaEntrada = sc.nextLine();
-            if (isFim(linhaEntrada) == false) {
-                if (binarySearch(linhaEntrada, 0, listaDeJogos.size() - 1)) {
-                    System.out.println("SIM");
-                } else {
-                    System.out.println("NAO");
-                }
+        // imprimir valores
 
-            }
-        } while (isFim(linhaEntrada) == false);
+        for (Game g : listaDeJogos) {
+            g.imprimir();
+        }
 
         sc.close();
     }

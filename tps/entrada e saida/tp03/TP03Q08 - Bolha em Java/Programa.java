@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -483,7 +482,7 @@ class Game {
 
         DecimalFormat df = new DecimalFormat("##");
         System.out.println(this.app_id + " " + this.name + " " + default_dateFormat.format(this.release_date) + " "
-                + this.owners + " " + this.age + " " + String.format("%.2f", this.price) + " " + this.dlcs + " "
+                + this.owners + " " + this.age + " " + String.format(Locale.US, "%.2f", price) + " " + this.dlcs + " "
                 + this.languages + " " + this.website + " " + this.windows + " " + this.mac + " " + this.linux + " "
                 + (Float.isNaN(this.upvotes) ? "0.0% " : df.format(this.upvotes) + "% ") + avg_pt + this.developers
                 + " " + this.genres);
@@ -491,6 +490,11 @@ class Game {
 }
 
 public class Programa {
+
+    public static int swap(int a, int b) {
+        return a;
+    }
+
     // criar lista global
     public static List<Game> listaDeJogos = new ArrayList<Game>();
 
@@ -525,38 +529,18 @@ public class Programa {
         }
     }
 
-    public static boolean binarySearch(String target, int start, int end) {
-        boolean resp;
-        // calculate the middle of the list
-        int middle = (start + end) / 2;
-        // if element isn't on the list
-        if (start > end) {
-            resp = false;
-        }
-        // check if target is on the middle
-        else if (listaDeJogos.get(middle).getName().compareTo(target) == 0) {
-            resp = true;
-        }
-        // if target is greater than element
-        else if (listaDeJogos.get(middle).getName().compareTo(target) < 0) {
-            resp = binarySearch(target, middle + 1, end);
-        }
-        // if target is smaller than element
-        else {
-            resp = binarySearch(target, start, middle - 1);
-        }
-        // java asking for return
-        return resp;
-
-    }
-
-    public static void Bubblesort() {
-    
+    public static void sort() {
+        int swap = 0;
         for (int i = 0; i < listaDeJogos.size(); i++) {
+            swap = 0;
             for (int j = 0; j < listaDeJogos.size() - i - 1; j++) {
-                if ((listaDeJogos.get(j).getName().compareTo(listaDeJogos.get(j + 1).getName()) > 0)) {
+                if ((listaDeJogos.get(j).getDevelopers().compareTo(listaDeJogos.get(j + 1).getDevelopers()) > 0)) {
                     Collections.swap(listaDeJogos, j, j + 1);
+                    swap++;
                 }
+            }
+            if (swap == 0) {
+                i = 100000000;
             }
         }
     }
@@ -577,21 +561,14 @@ public class Programa {
 
         } while (isFim(linhaEntrada) == false);
 
-        // ordenar lista por nome
-        Bubblesort();
+        // sortear valores
+        sort();
 
-        // binary search search
-        do {
-            linhaEntrada = sc.nextLine();
-            if (isFim(linhaEntrada) == false) {
-                if (binarySearch(linhaEntrada, 0, listaDeJogos.size() - 1)) {
-                    System.out.println("SIM");
-                } else {
-                    System.out.println("NAO");
-                }
+        // imprimir valores
 
-            }
-        } while (isFim(linhaEntrada) == false);
+        for (Game g : listaDeJogos) {
+            g.imprimir();
+        }
 
         sc.close();
     }
