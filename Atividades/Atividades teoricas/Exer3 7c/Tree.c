@@ -14,6 +14,9 @@ typedef struct node
 node *root = NULL;
 node *root2 = NULL;
 
+// index for treeSort
+int myIndex = 0;
+
 // functions prototypes
 void insert(int element);
 void insert2(int element);
@@ -32,8 +35,8 @@ bool compareTree(void);
 bool compareTreeReal(node *i, node *j);
 bool dividableBy11(void);
 bool dividableBy11Real(node *i);
-void TreeSort(int *array);
-void TreeSortReal(node *i, int *array, int index);
+void TreeSort(int *array, int size);
+void TreeSortReal(node *i, int *array);
 
 int main(void)
 {
@@ -53,7 +56,7 @@ int main(void)
         printf("%d, ", numbers2[i]);
     }
 
-    TreeSort(numbers2);
+    TreeSort(numbers2, 8);
     printf("\nVetor depois da ordenação: ");
     for (int i = 0; i < 8; i++)
     {
@@ -267,23 +270,22 @@ bool dividableBy11Real(node *i)
     return anwser;
 }
 
-void TreeSort(int *array)
+void TreeSort(int *array, int size)
 {
-    int arr_len = sizeof(array) / sizeof(array[0]);
-    for (int i = 0; i < arr_len; i++)
+    for (int i = 0; i < size; i++)
     {
         insert2(array[i]);
     }
 
-    TreeSortReal(root2, array, 0);
+    TreeSortReal(root2, array);
 }
 
-void TreeSortReal(node *i, int *array, int index)
+void TreeSortReal(node *i, int *array)
 {
     if (i != NULL)
     {
-        TreeSortReal(i->left, array, index);
-        array[index++] = i->val;
-        TreeSortReal(i->right, array, index);
+        TreeSortReal(i->left, array);
+        array[myIndex++] = i->val;
+        TreeSortReal(i->right, array);
     }
 }
