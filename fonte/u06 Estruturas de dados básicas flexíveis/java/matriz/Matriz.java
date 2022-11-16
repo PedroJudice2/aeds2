@@ -2,17 +2,16 @@ class Matriz {
    private Celula inicio;
    private int linha, coluna;
 
-   public Matriz (){
-      Matriz(3, 3);
+   public Matriz() {
+      this(3, 3);
    }
 
-   public Matriz (int linha, int coluna){
+   public Matriz(int linha, int coluna) {
       this.linha = linha;
       this.coluna = coluna;
 
-      //alocar a matriz com this.linha linhas e this.coluna colunas
+      // alocar a matriz com this.linha linhas e this.coluna colunas
    }
-
 
    public Matriz soma (Matriz m) {
       Matriz resp = null;
@@ -45,14 +44,14 @@ class Matriz {
       boolean (this.linha == this.coluna);
    }
 
-   public void mostrarDiagonalPrincipal (){
-      if(isQuadrada() == true){
+   public void mostrarDiagonalPrincipal() {
+      if (isQuadrada() == true) {
 
       }
    }
 
-   public void mostrarDiagonalSecundaria (){
-      if(isQuadrada() == true){
+   public void mostrarDiagonalSecundaria() {
+      if (isQuadrada() == true) {
       }
    }
 }

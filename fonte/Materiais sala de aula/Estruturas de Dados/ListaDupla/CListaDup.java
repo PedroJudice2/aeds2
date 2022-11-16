@@ -107,7 +107,7 @@ class CListaDup {
 
 	// Retorna o Item contido na posicao p da lista.
 	public Object retornaIndice(int posicao) {
-		// EXERCÃ�CIO : deve retornar o elemento da posicao p passada por parametro
+		// deve retornar o elemento da posicao p passada por parametro
 		// [cabeca]->[7]->[21]->[13]->null
 		// retornaIndice(2) deve retornar o elemento 21. retornaIndice de uma posicao
 		// inexistente deve retornar null.
@@ -119,6 +119,19 @@ class CListaDup {
 				;
 			if (aux != null)
 				return aux.item;
+		}
+		return null;
+	}
+
+	// retornar celula na posição desejada
+	private CCelulaDup retornaCelulaIndice(int posicao) {
+		if ((posicao >= 1) && (posicao <= qtde) && (primeira != ultima)) {
+			CCelulaDup aux = primeira.prox;
+			// Procura a posicao a ser inserido
+			for (int i = 1; i < posicao; i++, aux = aux.prox)
+				;
+			if (aux != null)
+				return aux;
 		}
 		return null;
 	}
@@ -219,6 +232,15 @@ class CListaDup {
 			for (k = primeira; k.prox != j; k = k.prox)
 				;
 			j = k;
+		}
+	}
+
+	// trocar elementos
+	public void swap(int pos1, int pos2) {
+		if ((pos1 >= 1 && pos2 >= 1 && pos1 != pos2) && (pos1 <= qtde && pos2 <= qtde) && (primeira != ultima)) {
+			Object temp = retornaIndice(pos1);
+			retornaCelulaIndice(pos1).item = retornaCelulaIndice(pos2).item;
+			retornaCelulaIndice(pos2).item = temp;
 		}
 	}
 
