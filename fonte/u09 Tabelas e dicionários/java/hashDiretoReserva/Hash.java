@@ -57,7 +57,29 @@ public class Hash {
 
    boolean remover(int elemento) {
       boolean resp = false;
-      // ...
-      return resp;
+        int pos = h(elemento);
+        if (tabela[pos] == NULO) {
+            return resp;
+        }
+        else if (tabela[pos] == elemento) {
+            resp = true;
+            tabela[pos] = NULO;
+            for (int i = 0; i < reserva; i++) {
+                if (h(tabela[m1 + i]) == pos) {
+                    tabela[pos] = tabela[m1 + i];
+                    tabela[m1 + i] = tabela[m1 + reserva--];
+                    i = reserva; // break
+                }
+            }
+        } else if (tabela[pos] != elemento) {
+           for (int i = 0; i < reserva; i++) {
+              if (tabela[m1 + i] == elemento) {
+                 resp = true;
+                 tabela[m1 + i] = tabela[m1 + reserva--];
+                 i = reserva; // break
+              }
+           }
+        }
+        return resp;
    }
 }
