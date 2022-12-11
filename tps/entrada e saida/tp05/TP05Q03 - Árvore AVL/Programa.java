@@ -568,20 +568,23 @@ public class Programa {
         }
 
         // pesquisar arvore
-        do {
-            options = sc.nextLine();
-            if (isFim(options) == false) {
-                System.out.println(options);
-                System.out.print("raiz ");
-                if (arvoreDeJogos.pesquisar(options)) {
-                    System.out.println("SIM");
-                } else {
-                    System.out.println("NAO");
-                }
-
-            }
-        } while (isFim(options) == false);
-        sc.close();
+        /*
+         * do {
+         * options = sc.nextLine();
+         * if (isFim(options) == false) {
+         * System.out.println(options);
+         * System.out.print("raiz ");
+         * if (arvoreDeJogos.pesquisar(options)) {
+         * System.out.println("SIM");
+         * } else {
+         * System.out.println("NAO");
+         * }
+         * 
+         * }
+         * } while (isFim(options) == false);
+         * sc.close();
+         */
+        arvoreDeJogos.caminharPre();
     }
 
 }
@@ -694,7 +697,7 @@ class AVL {
     private void caminharCentral(No i) {
         if (i != null) {
             caminharCentral(i.esq); // Elementos da esquerda.
-            System.out.print(i.elemento + " "); // Conteudo do no.
+            System.out.println(i.elemento.getName() + " "); // Conteudo do no.
             caminharCentral(i.dir); // Elementos da direita.
         }
     }
@@ -715,8 +718,9 @@ class AVL {
      */
     private void caminharPre(No i) {
         if (i != null) {
-            System.out.print(i.elemento + "(fator " + (No.getNivel(i.dir) - No.getNivel(i.esq)) + ") "); // Conteudo do
-                                                                                                         // no.
+            System.out.println(i.elemento.getName() + "(fator " + (No.getNivel(i.dir) - No.getNivel(i.esq)) + ") "); // Conteudo
+                                                                                                                     // do
+            // no.
             caminharPre(i.esq); // Elementos da esquerda.
             caminharPre(i.dir); // Elementos da direita.
         }

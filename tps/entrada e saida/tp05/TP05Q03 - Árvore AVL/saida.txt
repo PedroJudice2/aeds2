@@ -1,28 +1,53 @@
-Coloring Book for Kids
-raiz esq esq dir esq esq SIM
-After The War
-raiz esq esq esq esq dir esq NAO
-EDEN STAR
-raiz esq esq dir dir SIM
-Battle Brothers
-raiz esq esq esq dir esq dir NAO
-Fugl
-raiz esq dir esq esq esq dir NAO
-Crypto Is Dead
-raiz esq esq dir esq dir dir NAO
-BAD END THEATER
-raiz esq esq esq dir esq esq NAO
-HUNTDOWN
-raiz esq dir esq esq SIM
-Alien Prop Hunt
-raiz esq esq esq esq dir esq NAO
-Motorama
-raiz esq dir dir dir esq NAO
-BAD END THEATER
-raiz esq esq esq dir esq esq NAO
-Homebrew - Patent Unknown
-raiz esq dir esq SIM
-Football Manager 2019 Touch
-raiz esq dir esq esq esq dir NAO
-Everreach: Project Eden
-raiz esq esq dir dir dir esq esq NAO
+[ NEAR DEADline(fator -1) 
+Flight of the Icarus(fator 0) 
+Chinese Chess/ Elephant Game: 象棋/ 中国象棋/ 中國象棋(fator 0) 
+Another Otter(fator -1) 
+ANVIL(fator -1) 
+A Detective's Novel(fator -1) 
+'n Verlore Verstand(fator 0) 
+Alien Shooter - Last Hope(fator 0) 
+Beat Hazard(fator -1) 
+BOOR(fator 0) 
+Cultivation Tales(fator 0) 
+Cosmic Sugar VR(fator -1) 
+Coloring Book for Kids(fator 0) 
+Chuhou Joutai 2: Paraided!(fator 0) 
+Commander: Conquest of the Americas(fator 0) 
+Counter-Strike: Global Offensive(fator 0) 
+EDEN STAR(fator 1) 
+Deadbeat Heroes(fator 0) 
+Faefever(fator -1) 
+FINAL FANTASY® XIII(fator 0) 
+Lonely Mountains: Downhill(fator -1) 
+Homebrew - Patent Unknown(fator -1) 
+HUNTDOWN(fator 1) 
+Fluffy Store(fator 0) 
+Higurashi When They Cry Hou - Ch.2 Watanagashi(fator -1) 
+Have a Nice Death(fator 0) 
+KINGDOM of the DEAD(fator 1) 
+Killer Queen Black(fator 0) 
+Mistwood Heroes(fator -1) 
+MSI Electric City: Core Assault(fator 0) 
+Ludo Supremo(fator 0) 
+Men of War: Assault Squad(fator 0) 
+Mutant Mudds Deluxe(fator 0) 
+Shadowrun: Dragonfall - Director's Cut(fator 0) 
+Pincremental(fator 1) 
+Neon Outlast(fator -1) 
+NOBUNAGA'S AMBITION: Tendou with Power Up Kit(fator 0) 
+RollerCoaster Tycoon® 3: Complete Edition(fator -1) 
+Protolife(fator 1) 
+Rhiannon: Curse of the Four Branches(fator 0) 
+SPORE™ Galactic Adventures(fator 0) 
+The Insignia Project(fator 0) 
+Sopwith VR(fator 0) 
+Sonic Adventure 2(fator -1) 
+Solasta: Crown of the Magister(fator 0) 
+The Gallery - Episode 1: Call of the Starseed(fator -1) 
+Synthesis Universe -Episode 00-(fator 0) 
+The Vanishing of Ethan Carter(fator 0) 
+The Island: Into The Mist(fator 0) 
+告死天使之言-Death angel(fator 0) 
+WARRIORS OROCHI 3 Ultimate Definitive Edition(fator 0) 
+觅长生(fator 0) 
+]
