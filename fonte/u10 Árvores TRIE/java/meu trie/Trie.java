@@ -35,11 +35,8 @@ public class Trie {
             if (curr.array[hash(word.charAt(i))] != null) {
                 if (i == word.length() - 1 && curr.array[hash(word.charAt(i))].endOfWord) {
                     resp = true;
-                } else if (curr.array[hash(word.charAt(i))].next != null) {
-                    curr = curr.array[hash(word.charAt(i))].next;
-                } else {
-                    i = word.length(); // break
                 }
+                curr = curr.array[hash(word.charAt(i))].next;
             } else {
                 i = word.length(); // break
             }
@@ -93,8 +90,7 @@ public class Trie {
             if (curr.array[i] != null) {
                 if (curr.array[i].endOfWord) {
                     System.out.println(str.concat(Character.toString(curr.array[i].letter)));
-                }
-                if (curr.array[i].next != null) {
+                } else if (curr.array[i].next != null) {
                     print(str.concat(Character.toString(curr.array[i].letter)), curr.array[i].next);
                 }
             }
