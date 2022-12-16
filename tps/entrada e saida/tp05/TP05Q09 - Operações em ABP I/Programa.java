@@ -3,10 +3,9 @@ import java.util.Scanner;
 class Programa {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String line;
         ArvoreBinaria arvore = new ArvoreBinaria();
         while (sc.hasNext()) {
-            line = sc.nextLine();
+            String line = sc.nextLine();
             if (line.equals("INFIXA")) {
                 arvore.caminharCentral();
             } else if (line.equals("PREFIXA")) {
